@@ -1,0 +1,56 @@
+ 
+<div class="container">
+    {% for article in articles %}
+        <div class="card mb-3" style="max-width: 540px;">
+
+
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    {% if article.image != 'null' and article.image.url|length >= 1  %}
+                        <img src="{{article.image.url}}" />
+                    {% else %}           
+                        Sin Imagen                
+                    {% endif %}
+
+               </div>
+
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h2 class="card-title">
+                                <a href="{% url 'article' article.id %}">{{article.title}}</a>
+                                
+                        </h2>
+                        <p class="card-text"><small class="text-muted">
+                            {{article.user.first_name}} {{article.user.last_name}} |
+                            {{article.created_at}}
+                                                    
+                        </small></p>
+                        <p class="card-text">
+                                {{ article.content|safe|slice:":255"}}  
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                            
+                                {% for category in article.categories.all %}
+                                    <a href="{% url 'category' category.id %}">{{category.name}}</a>
+
+                                    {% if forloop.counter < article.categories.all|length %}
+                                        {{'-'}}
+                                    {% endif %}
+
+                                {% endfor %}
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    
+<div class="clearfix"></div>
+    
+
+{% endfor %}
+</div>
+

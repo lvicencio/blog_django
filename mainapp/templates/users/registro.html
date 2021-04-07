@@ -1,0 +1,33 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %}
+    {{title}}
+{% endblock title %}
+
+{% block content %}
+    {{title}}
+    <br><br>
+
+    {{register_form.errors}}
+    <form method="post" action="">
+        {% csrf_token %}
+
+    {% comment "impresion del formulario default" %}
+        {{register_form.as_p}}
+    {% endcomment %}
+
+    {% comment "impresion por cada campo" %}
+        {{register_form.username.label}}
+        {{register_form.username}}
+    {% endcomment %}
+
+    {% for field  in register_form %}
+        <label>{{field.label}}</label>
+        {{field}}
+    {% endfor %}
+    
+
+        <input type="submit" value="Registrar" />
+    </form>
+    
+{% endblock content %}
